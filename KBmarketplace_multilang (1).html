@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>KBmarketplace - KhadimBadiane</title>
+
+    <!-- ── PWA META ─────────────────────────── -->
+    <meta name="application-name" content="KBmarketplace">
+    <meta name="description" content="KBmarketplace — Your Favour Design by KhadimBadiane">
+    <meta name="theme-color" content="#06080f">
+    <meta name="background-color" content="#06080f">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- iOS Safari PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KBmarket">
+
+    <!-- iOS icons (inline SVG data URIs — no external files needed) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%2306080f'/%3E%3Crect x='10' y='10' width='160' height='160' rx='32' fill='%230d1220'/%3E%3Crect x='24' y='24' width='132' height='132' rx='28' fill='%2322dd3b' opacity='.12'/%3E%3Ctext x='90' y='115' font-family='monospace' font-size='72' font-weight='700' fill='%2322dd3b' text-anchor='middle'%3EKB%3C/text%3E%3C/svg%3E">
+
+    <!-- Manifest (inline via JS blob — no server needed) -->
+    <link rel="manifest" id="pwa-manifest">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="KBmarketplace">
+    <meta property="og:description" content="Your Favour Design — Mode, Style & Livraison Gambie">
+    <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
@@ -873,7 +897,6 @@
         .social-connect-grid {
             display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;
         }
-        @media (max-width: 768px) { .social-connect-grid { grid-template-columns: 1fr; } }
 
         .social-platform-card {
             border-radius: var(--radius); padding: 1.4rem 1.2rem;
@@ -1020,16 +1043,157 @@
         [dir="rtl"] .footer-social { direction: rtl; }
 
         /* ── RESPONSIVE ─────────────────────── */
-        @media (max-width: 768px) {
-            .hero { padding: 3.5rem 1.5rem 3rem; margin: 1rem; }
-            .hero-stats { gap: 1.5rem; }
+        /* ══════════════════════════════════════
+           RESPONSIVE — TABLET (≤1024px)
+        ══════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            /* Navbar */
+            #nav-bar { padding: 0 1.2rem; }
+            .logo-tagline { display: none; }
+
+            /* Admin sidebar becomes top bar */
+            .admin-layout { flex-direction: column; }
+            .admin-sidebar {
+                width: 100%; height: auto; position: static;
+                padding: 0.6rem 1rem;
+                display: flex; flex-direction: row; flex-wrap: wrap;
+                gap: 4px; border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .admin-sidebar-title { display: none; }
+            .admin-menu-item {
+                padding: 7px 14px; font-size: 0.82rem;
+                margin-bottom: 0;
+            }
+            .admin-content { padding: 1.2rem; }
+
+            /* Social grid */
+            .social-connect-grid { grid-template-columns: 1fr 1fr; }
+
+            /* Products */
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1.2rem; }
+
+            /* Cart */
+            #cart-panel { width: 380px; }
+
+            /* Hero */
+            .hero { padding: 4rem 2rem 3rem; }
+
+            /* Stats grid */
+            .stats-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); }
+        }
+
+        /* ══════════════════════════════════════
+           RESPONSIVE — MOBILE (≤640px)
+        ══════════════════════════════════════ */
+        @media (max-width: 640px) {
+            /* Navbar */
+            #nav-bar { padding: 0 1rem; height: 60px; }
+            .logo-kb { font-size: 1.1rem; }
+            .logo-image { width: 36px; height: 36px; font-size: 0.85rem; }
+            .custom-logo { gap: 9px; }
             .nav-tabs { display: none; }
-            .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 1rem; }
-            .filter-bar { margin: 1rem; }
-            .marquee-banner { margin: 84px 1rem 0; }
-            .admin-sidebar { width: 100%; height: auto; position: static; }
-            #cart-panel { width: 100%; border-radius: 24px 24px 0 0; }
-            .search-wrap input { width: 160px; }
+            #mobile-nav-toggle { display: flex !important; }
+            .search-wrap { display: none; } /* search moved to filter bar */
+            .lang-switcher { gap: 2px; }
+            .lang-btn { padding: 4px 8px; font-size: 0.7rem; }
+
+            /* Page offset for shorter navbar */
+            .page { padding-top: 60px; }
+            .admin-layout { padding-top: 60px; }
+            .marquee-banner { margin: 72px 0.75rem 0; }
+
+            /* Hero */
+            .hero {
+                margin: 0.75rem 0.75rem 0;
+                padding: 2.8rem 1.2rem 2.2rem;
+                border-radius: var(--radius);
+            }
+            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+            .hero p { font-size: 0.9rem; margin-bottom: 1.8rem; }
+            .hero-stats { gap: 1.2rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 1.5rem; }
+            .stat-num { font-size: 1.4rem; }
+
+            /* Filter bar */
+            .filter-bar {
+                margin: 0.75rem 0.75rem 0;
+                padding: 8px 10px; gap: 5px;
+                border-radius: var(--radius);
+                flex-wrap: wrap;
+            }
+            .filter-btn { padding: 6px 12px; font-size: 0.8rem; }
+
+            /* Search inside filter bar on mobile */
+            .search-wrap { display: block; width: 100%; margin-left: 0; margin-top: 4px; }
+            .search-wrap input { width: 100%; }
+
+            /* Products */
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                padding: 0.75rem 0.75rem 5rem;
+            }
+
+            /* Product card compact */
+            .product-card { border-radius: var(--radius-sm); }
+
+            /* Cart */
+            #cart-panel {
+                width: 100%; border-radius: 20px 20px 0 0;
+                bottom: 0; top: auto; max-height: 85vh; overflow-y: auto;
+            }
+
+            /* Admin sidebar — scrollable horizontal strip */
+            .admin-sidebar {
+                flex-wrap: nowrap; overflow-x: auto;
+                padding: 0.5rem 0.75rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .admin-sidebar::-webkit-scrollbar { display: none; }
+            .admin-menu-item { white-space: nowrap; flex-shrink: 0; font-size: 0.8rem; padding: 6px 12px; }
+            .admin-content { padding: 0.75rem; }
+            .admin-card { padding: 1rem; border-radius: var(--radius-sm); }
+            .admin-card h3 { font-size: 1rem; margin-bottom: 1rem; }
+
+            /* Social cards — single column */
+            .social-connect-grid { grid-template-columns: 1fr; }
+
+            /* Stats grid */
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+            .stat-card { padding: 1rem; font-size: 0.82rem; }
+
+            /* Tables — horizontal scroll */
+            .admin-card > table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+            /* Checkout */
+            .checkout-box { padding: 1.5rem 1rem; border-radius: var(--radius); }
+            .checkout-grid { grid-template-columns: 1fr; }
+            .checkout-input.full { grid-column: 1; }
+            .checkout-actions { flex-direction: column; }
+
+            /* Toast */
+            .toast { right: 12px; left: 12px; text-align: center; bottom: 80px; }
+
+            /* Floating social */
+            #floating-social { bottom: 14px; left: 14px; gap: 8px; }
+            .float-wa, .float-fb, .float-tt { width: 40px; height: 40px; font-size: 1.1rem; }
+
+            /* Footer */
+            .site-footer { padding: 1.5rem 1rem; text-align: center; }
+            #social-links-container { flex-direction: column; align-items: center; gap: 8px; }
+
+            /* Login modal */
+            .login-card { padding: 1.8rem 1.2rem; margin: 1rem; border-radius: var(--radius); }
+        }
+
+        /* ══════════════════════════════════════
+           RESPONSIVE — VERY SMALL (≤360px)
+        ══════════════════════════════════════ */
+        @media (max-width: 360px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.6rem; }
         }
 
         /* Cart overlay */
@@ -1111,7 +1275,14 @@
         </div>
         <div class="nav-tabs">
             <button class="nav-tab active" data-page="client">🛍️ Boutique</button>
-            <button class="nav-tab" data-page="admin">⚙️ Admin</button>
+            <button class="nav-tab" id="admin-nav-btn" data-page="admin" style="display:none">⚙️ Admin</button>
+        </div>
+        <!-- Mobile nav toggle -->
+        <button id="mobile-nav-toggle" onclick="toggleMobileNav()" style="display:none;background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--off-white);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.1rem;align-items:center;justify-content:center;">☰</button>
+        <!-- Mobile nav dropdown -->
+        <div id="mobile-nav-dropdown" style="display:none;position:fixed;top:60px;left:0;right:0;background:rgba(6,8,15,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:999;padding:0.75rem 1rem;flex-direction:column;gap:6px;">
+            <button class="nav-tab active" onclick="showPage('client');closeMobileNav()" style="width:100%;text-align:left;padding:12px 16px;border-radius:12px;">🛍️ Boutique</button>
+            <button id="admin-nav-btn-mobile" onclick="showPage('admin');closeMobileNav()" class="nav-tab" style="display:none;width:100%;text-align:left;padding:12px 16px;border-radius:12px;">⚙️ Admin</button>
         </div>
         <div class="nav-right" style="display:flex;align-items:center;gap:10px">
             <div class="lang-switcher" id="lang-switcher">
@@ -1651,6 +1822,11 @@
         const logged = localStorage.getItem("kb_admin_logged_in") === "true";
         if (remember && logged && adminCreds) {
             adminLoggedIn = true;
+            // Show admin button in navbar for returning admin session
+            const adminBtn = document.getElementById("admin-nav-btn");
+            if (adminBtn) adminBtn.style.display = "";
+            const adminBtnMob = document.getElementById("admin-nav-btn-mobile");
+            if (adminBtnMob) adminBtnMob.style.display = "";
             if (document.getElementById("page-admin").style.display !== "none") {
                 loadAdminInterface();
                 renderAdminTables();
@@ -1863,6 +2039,11 @@
             adminLoggedIn = true;
             saveSession(remember);
             document.getElementById("admin-login").style.display = "none";
+            // Reveal admin button in navbar
+            const adminBtn = document.getElementById("admin-nav-btn");
+            if (adminBtn) adminBtn.style.display = "";
+            const adminBtnMob = document.getElementById("admin-nav-btn-mobile");
+            if (adminBtnMob) adminBtnMob.style.display = "";
             loadAdminInterface();
             showPage("admin");
             renderAdminTables();
@@ -1902,6 +2083,11 @@
         const adminContainer = document.getElementById("page-admin");
         if (adminContainer) adminContainer.innerHTML = "";
         document.getElementById("page-admin").style.display = "none";
+        // Hide admin button again for visitors
+        const adminBtn = document.getElementById("admin-nav-btn");
+        if (adminBtn) { adminBtn.style.display = "none"; adminBtn.classList.remove("active"); }
+        const adminBtnMob = document.getElementById("admin-nav-btn-mobile");
+        if (adminBtnMob) adminBtnMob.style.display = "none";
         showPage("client");
         showToast("Déconnecté");
     }
@@ -1910,7 +2096,8 @@
             document.getElementById("page-client").style.display = "block";
             document.getElementById("page-admin").style.display = "none";
             document.querySelector(".nav-tab[data-page='client']").classList.add("active");
-            document.querySelector(".nav-tab[data-page='admin']").classList.remove("active");
+            const adminBtn = document.getElementById("admin-nav-btn");
+            if (adminBtn) adminBtn.classList.remove("active");
         } else if (page === "admin") {
             if (!adminLoggedIn) {
                 const exists = localStorage.getItem("kb_admin_creds");
@@ -1920,10 +2107,30 @@
             }
             document.getElementById("page-client").style.display = "none";
             document.getElementById("page-admin").style.display = "block";
-            document.querySelector(".nav-tab[data-page='admin']").classList.add("active");
+            const adminBtn = document.getElementById("admin-nav-btn");
+            if (adminBtn) { adminBtn.style.display = ""; adminBtn.classList.add("active"); }
+            const adminBtnMob = document.getElementById("admin-nav-btn-mobile");
+            if (adminBtnMob) adminBtnMob.style.display = "";
             document.querySelector(".nav-tab[data-page='client']").classList.remove("active");
             renderAdminTables();
         }
+    }
+
+    // ── Secret admin access ──────────────────
+    // Method 1: triple-click on logo
+    let logoClickCount = 0, logoClickTimer = null;
+    document.querySelector(".custom-logo").addEventListener("click", function(e) {
+        logoClickCount++;
+        clearTimeout(logoClickTimer);
+        logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 600);
+        if (logoClickCount >= 3) {
+            logoClickCount = 0;
+            showPage("admin");
+        }
+    });
+    // Method 2: ?admin or #admin in URL
+    if (location.search.includes("admin") || location.hash === "#admin") {
+        showPage("admin");
     }
 
     // ========== ADMIN INTERFACE ==========
@@ -2485,7 +2692,7 @@
         loadSession();
         renderProducts(applyFilterAndSearch());
         updateCartUI();
-        document.querySelectorAll(".nav-tab").forEach(t => t.addEventListener("click", () => showPage(t.getAttribute("data-page"))));
+        document.querySelectorAll(".nav-tab[data-page]").forEach(t => t.addEventListener("click", () => showPage(t.getAttribute("data-page"))));
         document.querySelectorAll(".filter-btn").forEach(btn => { btn.addEventListener("click", () => filterProducts(btn.getAttribute("data-cat"), btn)); });
         document.getElementById("search-input")?.addEventListener("input", e => searchProducts(e.target.value));
     });
@@ -2495,6 +2702,17 @@
     window.testSocial = testSocial;
     window.clearSocial = clearSocial;
     window.toggleSocialEnabled = toggleSocialEnabled;
+
+    // Mobile nav
+    function toggleMobileNav() {
+        const dd = document.getElementById("mobile-nav-dropdown");
+        dd.style.display = dd.style.display === "flex" ? "none" : "flex";
+    }
+    function closeMobileNav() {
+        document.getElementById("mobile-nav-dropdown").style.display = "none";
+    }
+    window.toggleMobileNav = toggleMobileNav;
+    window.closeMobileNav = closeMobileNav;
     window.addToCart = addToCart;
     window.checkAdminPwd = checkAdminPwd;
     window.logoutAdmin = logoutAdmin;
@@ -2526,5 +2744,160 @@
     window.closeCheckout = closeCheckout;
     window.openCheckout = openCheckout;
 </script>
+
+<!-- ── PWA — MANIFEST + SERVICE WORKER ──────────────────── -->
+<script>
+(function() {
+    // ── 1. Inline Manifest (blob URL — no server needed) ──
+    const manifest = {
+        name: "KBmarketplace",
+        short_name: "KBmarket",
+        description: "Your Favour Design — Mode & Livraison Gambie",
+        start_url: "./",
+        display: "standalone",
+        orientation: "portrait-primary",
+        background_color: "#06080f",
+        theme_color: "#06080f",
+        lang: "fr",
+        categories: ["shopping", "lifestyle"],
+        icons: [
+            {
+                src: "data:image/svg+xml," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%2306080f'/><rect x='28' y='28' width='456' height='456' rx='80' fill='%230d1220'/><rect x='60' y='60' width='392' height='392' rx='60' fill='%2322dd3b' opacity='.1'/><text x='256' y='320' font-family='monospace' font-size='220' font-weight='700' fill='%2322dd3b' text-anchor='middle'>KB</text></svg>`),
+                sizes: "512x512", type: "image/svg+xml", purpose: "any maskable"
+            },
+            {
+                src: "data:image/svg+xml," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%2306080f'/><text x='96' y='130' font-family='monospace' font-size='96' font-weight='700' fill='%2322dd3b' text-anchor='middle'>KB</text></svg>`),
+                sizes: "192x192", type: "image/svg+xml", purpose: "any"
+            }
+        ],
+        shortcuts: [
+            { name: "Boutique", url: "./?page=client", description: "Voir les produits" },
+            { name: "Mon panier", url: "./?page=cart", description: "Voir le panier" }
+        ]
+    };
+
+    const blob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+    const manifestURL = URL.createObjectURL(blob);
+    document.getElementById("pwa-manifest").setAttribute("href", manifestURL);
+
+    // ── 2. Service Worker (inline blob) ──
+    if ("serviceWorker" in navigator) {
+        const swCode = `
+const CACHE = "kb-market-v1";
+const SHELL = ["/"];
+
+self.addEventListener("install", e => {
+    e.waitUntil(
+        caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())
+    );
+});
+
+self.addEventListener("activate", e => {
+    e.waitUntil(
+        caches.keys().then(keys =>
+            Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+        ).then(() => self.clients.claim())
+    );
+});
+
+self.addEventListener("fetch", e => {
+    if (e.request.method !== "GET") return;
+    e.respondWith(
+        fetch(e.request)
+            .then(res => {
+                const clone = res.clone();
+                caches.open(CACHE).then(c => c.put(e.request, clone));
+                return res;
+            })
+            .catch(() => caches.match(e.request))
+    );
+});
+        `;
+        const swBlob = new Blob([swCode], { type: "application/javascript" });
+        const swURL = URL.createObjectURL(swBlob);
+        navigator.serviceWorker.register(swURL).catch(() => {});
+    }
+
+    // ── 3. Install Banner ──
+    let deferredPrompt = null;
+    const banner = document.getElementById("pwa-install-banner");
+    const installBtn = document.getElementById("pwa-install-btn");
+    const dismissBtn = document.getElementById("pwa-dismiss-btn");
+
+    window.addEventListener("beforeinstallprompt", e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (banner && !localStorage.getItem("kb_pwa_dismissed")) {
+            banner.style.display = "flex";
+        }
+    });
+
+    if (installBtn) {
+        installBtn.addEventListener("click", async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === "accepted") localStorage.setItem("kb_pwa_installed", "1");
+            deferredPrompt = null;
+            banner.style.display = "none";
+        });
+    }
+    if (dismissBtn) {
+        dismissBtn.addEventListener("click", () => {
+            banner.style.display = "none";
+            localStorage.setItem("kb_pwa_dismissed", "1");
+        });
+    }
+
+    // ── 4. iOS Safari install hint ──
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isStandalone = ("standalone" in navigator) && navigator.standalone;
+    const iosBanner = document.getElementById("pwa-ios-hint");
+    if (isIOS && !isStandalone && !localStorage.getItem("kb_ios_dismissed") && iosBanner) {
+        iosBanner.style.display = "flex";
+        document.getElementById("pwa-ios-close").onclick = () => {
+            iosBanner.style.display = "none";
+            localStorage.setItem("kb_ios_dismissed", "1");
+        };
+    }
+})();
+</script>
+
+<!-- ── INSTALL BANNER (Android/Chrome) ── -->
+<div id="pwa-install-banner" style="
+    display:none; position:fixed; bottom:0; left:0; right:0; z-index:99999;
+    background:linear-gradient(135deg,#0d1220,#111827);
+    border-top:1px solid rgba(34,221,59,0.25);
+    padding:14px 16px; align-items:center; gap:12px;
+    box-shadow:0 -8px 32px rgba(0,0,0,0.5);
+">
+    <div style="width:44px;height:44px;background:linear-gradient(135deg,#22dd3b,#16a32a);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:monospace;font-weight:700;color:#06080f;font-size:0.95rem;flex-shrink:0">KB</div>
+    <div style="flex:1;min-width:0">
+        <div style="font-weight:700;color:#fff;font-size:0.92rem">Installer KBmarketplace</div>
+        <div style="color:#6b7a96;font-size:0.78rem;margin-top:2px">Accès rapide depuis votre écran d'accueil</div>
+    </div>
+    <button id="pwa-install-btn" style="background:#22dd3b;color:#06080f;border:none;padding:9px 18px;border-radius:50px;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap">Installer</button>
+    <button id="pwa-dismiss-btn" style="background:transparent;border:none;color:#6b7a96;font-size:1.3rem;cursor:pointer;padding:4px;line-height:1">×</button>
+</div>
+
+<!-- ── IOS INSTALL HINT ── -->
+<div id="pwa-ios-hint" style="
+    display:none; position:fixed; bottom:0; left:0; right:0; z-index:99999;
+    background:linear-gradient(135deg,#0d1220,#111827);
+    border-top:1px solid rgba(34,221,59,0.25);
+    padding:14px 16px; align-items:flex-start; gap:12px;
+    box-shadow:0 -8px 32px rgba(0,0,0,0.5);
+">
+    <div style="width:44px;height:44px;background:linear-gradient(135deg,#22dd3b,#16a32a);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:monospace;font-weight:700;color:#06080f;font-size:0.95rem;flex-shrink:0">KB</div>
+    <div style="flex:1">
+        <div style="font-weight:700;color:#fff;font-size:0.92rem">Installer sur iPhone / iPad</div>
+        <div style="color:#6b7a96;font-size:0.78rem;margin-top:4px;line-height:1.5">
+            Appuyez sur <strong style="color:#22dd3b">⬆️ Partager</strong> dans Safari,<br>
+            puis <strong style="color:#22dd3b">« Sur l'écran d'accueil »</strong>
+        </div>
+    </div>
+    <button id="pwa-ios-close" style="background:transparent;border:none;color:#6b7a96;font-size:1.3rem;cursor:pointer;padding:4px;line-height:1">×</button>
+</div>
+
 </body>
 </html>
